@@ -165,8 +165,6 @@ class MainShell extends StatefulWidget {
 }
 
 class _MainShellState extends State<MainShell> {
-  int _selectedIndex = 0;
-
   static const List<_NavItem> _navItems = [
     _NavItem(
       icon: Icons.dashboard_outlined,
@@ -193,28 +191,38 @@ class _MainShellState extends State<MainShell> {
       route: AppConstants.routeDrivers,
     ),
     _NavItem(
-      icon: Icons.bar_chart_outlined,
-      activeIcon: Icons.bar_chart_rounded,
-      label: 'Analytics',
-      route: AppConstants.routeAnalytics,
+      icon: Icons.notifications_none_rounded,
+      activeIcon: Icons.notifications_rounded,
+      label: 'Alerts',
+      route: AppConstants.routeConsignmentMonitor,
     ),
   ];
 
+  int _calculateSelectedIndex(BuildContext context) {
+    final String location = GoRouterState.of(context).uri.path;
+    if (location.startsWith(AppConstants.routeHome)) return 0;
+    if (location.startsWith(AppConstants.routeConsignmentMonitor)) return 4;
+    if (location.startsWith(AppConstants.routeConsignments)) return 1;
+    if (location.startsWith(AppConstants.routeTrucks)) return 2;
+    if (location.startsWith(AppConstants.routeDrivers)) return 3;
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
+    final int selectedIndex = _calculateSelectedIndex(context);
     return Scaffold(
       backgroundColor: const Color(0xFFF1F5F9),
       body: widget.child,
-      bottomNavigationBar: _buildBottomNav(),
+      bottomNavigationBar: _buildBottomNav(selectedIndex),
     );
   }
 
-  Widget _buildBottomNav() {
+  Widget _buildBottomNav(int selectedIndex) {
     return _ModernNavBar(
       items: _navItems,
-      selectedIndex: _selectedIndex,
+      selectedIndex: selectedIndex,
       onItemSelected: (i) {
-        setState(() => _selectedIndex = i);
         context.go(_navItems[i].route);
       },
     );
