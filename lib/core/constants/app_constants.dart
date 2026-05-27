@@ -11,6 +11,7 @@ class AppConstants {
   static const String routeHome = '/home';
   static const String routeConsignments = '/consignments';
   static const String routeConsignmentCreate = '/consignments/create';
+  static const String routeConsignmentMonitor = '/consignments/monitor';
   static const String routeConsignmentEdit = '/consignments/edit';
   static const String routeConsignmentDetail = '/consignments/detail';
   static const String routeTrucks = '/trucks';

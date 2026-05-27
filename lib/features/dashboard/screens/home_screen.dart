@@ -367,11 +367,11 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           // Premium asset logo at a perfectly proportioned height
           Image.asset(
             'assets/images/logo.png',
-            height: 32,
+            height: 42,
             fit: BoxFit.contain,
-            errorBuilder: (_, __, ___) => const BrandLogo(fontSize: 16, withIcon: false),
+            errorBuilder: (_, __, ___) => const BrandLogo(fontSize: 18, withIcon: false),
           ),
-          const SizedBox(width: 10),
+          const SizedBox(width: 24),
           // Live status badge next to logo
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -515,61 +515,70 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
           const SizedBox(width: 8),
           _miniStat('Distance', _distanceCovered, Icons.route_rounded, AppColors.brandRed),
           const SizedBox(width: 8),
-          _miniStat('Alerts', '${MockDataService.liveAlerts.length}', Icons.warning_rounded, AppColors.brandRed),
+          _miniStat(
+            'Alerts',
+            '${MockDataService.liveAlerts.length}',
+            Icons.warning_rounded,
+            AppColors.brandRed,
+            onTap: () => context.push(AppConstants.routeConsignmentMonitor),
+          ),
         ],
       ),
     );
   }
 
-  Widget _miniStat(String label, String value, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.96),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xFF0F172A).withValues(alpha: 0.04),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(6),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.08),
-              borderRadius: BorderRadius.circular(8),
+  Widget _miniStat(String label, String value, IconData icon, Color color, {VoidCallback? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white.withValues(alpha: 0.96),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
+          boxShadow: [
+            BoxShadow(
+              color: const Color(0xFF0F172A).withValues(alpha: 0.04),
+              blurRadius: 10,
+              offset: const Offset(0, 4),
             ),
-            child: Icon(icon, color: color, size: 16),
-          ),
-          const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(value,
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w800,
-                    color: color,
-                    height: 1.0,
-                  )),
-              const SizedBox(height: 2),
-              Text(label,
-                  style: const TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 10,
-                    color: Color(0xFF64748B), // Slate-500
-                    fontWeight: FontWeight.w600,
-                  )),
-            ],
-          ),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Icon(icon, color: color, size: 16),
+            ),
+            const SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(value,
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 14,
+                      fontWeight: FontWeight.w800,
+                      color: color,
+                      height: 1.0,
+                    )),
+                const SizedBox(height: 2),
+                Text(label,
+                    style: const TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 10,
+                      color: Color(0xFF64748B), // Slate-500
+                      fontWeight: FontWeight.w600,
+                    )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

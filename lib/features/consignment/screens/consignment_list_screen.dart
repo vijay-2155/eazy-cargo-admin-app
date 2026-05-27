@@ -81,6 +81,11 @@ class _ConsignmentListScreenState extends State<ConsignmentListScreen> {
         showBack: false,
         actions: [
           IconButton(
+            tooltip: 'Live Alerts Monitor',
+            icon: const Icon(Icons.campaign_rounded, color: AppColors.brandRed, size: 22),
+            onPressed: () => context.push(AppConstants.routeConsignmentMonitor),
+          ),
+          IconButton(
             icon: const Icon(Icons.tune_rounded, color: AppColors.white, size: 22),
             onPressed: () {},
           ),

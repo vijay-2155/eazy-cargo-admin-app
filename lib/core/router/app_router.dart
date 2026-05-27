@@ -5,6 +5,7 @@ import 'package:eaze_my_cargo/features/auth/screens/login_screen.dart';
 import 'package:eaze_my_cargo/features/dashboard/screens/home_screen.dart';
 import 'package:eaze_my_cargo/features/consignment/screens/consignment_list_screen.dart';
 import 'package:eaze_my_cargo/features/consignment/screens/consignment_create_screen.dart';
+import 'package:eaze_my_cargo/features/consignment/screens/consignment_monitor_screen.dart';
 import 'package:eaze_my_cargo/features/consignment/screens/consignment_detail_screen.dart';
 import 'package:eaze_my_cargo/features/truck/screens/truck_list_screen.dart';
 import 'package:eaze_my_cargo/features/truck/screens/truck_create_screen.dart';
@@ -51,6 +52,13 @@ final GoRouter appRouter = GoRouter(
               path: 'create',
               pageBuilder: (context, state) => CustomTransitionPage(
                 child: const ConsignmentCreateScreen(),
+                transitionsBuilder: _slideUp,
+              ),
+            ),
+            GoRoute(
+              path: 'monitor',
+              pageBuilder: (context, state) => CustomTransitionPage(
+                child: const ConsignmentMonitorScreen(),
                 transitionsBuilder: _slideUp,
               ),
             ),
